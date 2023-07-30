@@ -11,6 +11,7 @@ except:
     options = {
         "inputFolder": "Input/",
         "outputFolder": "Output/",
+        "verbose": True,
         "Column": 1,
         "Rows": 0
     }
@@ -39,7 +40,7 @@ for fileName in inputs:
         rowsToConvert = len(columnFrame)
     for i in range(rowsToConvert):
         data = columnFrame.iloc[[i]]
-        outputFile = open(options["outputFolder"] + "File" + str(fileCount) + "Row" +  str(i), "w")
+        outputFile = open(options["outputFolder"] + "File" + str(fileCount) + "Row" +  str(i) + ".txt", "w")
         outputFile.write(data.to_string(header=False, index=False))
         outputFile.close()
 print ("Transfer Complete")
