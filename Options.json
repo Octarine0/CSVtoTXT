@@ -2,6 +2,6 @@
  "inputFolder": "Input/",
  "outputFolder": "Output/",
  "verbose": true,
- "Column": 1,
+ "Column": 7,
  "Rows": 0
 }
