@@ -1,6 +1,7 @@
 {
  "inputFolder": "Input/",
  "outputFolder": "Output/",
+ "verbose": true,
  "Column": 1,
  "Rows": 0
 }
