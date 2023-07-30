@@ -2,6 +2,7 @@
  "inputFolder": "Input/",
  "outputFolder": "Output/",
  "verbose": true,
+ "tidyData": true,
  "Column": 7,
  "Rows": 0
 }

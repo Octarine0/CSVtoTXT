@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 from os import listdir
+import re
 
 #loading options
 try:
@@ -12,6 +13,7 @@ except:
         "inputFolder": "Input/",
         "outputFolder": "Output/",
         "verbose": True,
+        "tidyData": True,
         "Column": 1,
         "Rows": 0
     }
@@ -38,12 +40,18 @@ for fileName in inputs:
     #columnFrame = rawDataFrame.usecols=[options["Column"]]
     if (options["Rows"] <= 0):
         rowsToConvert = len(columnFrame)
+    else:
+        rowsToConvert = options["Rows"]
     for i in range(rowsToConvert):
         data = columnFrame.iloc[[i]]
+        stringData = data.to_string(header=False, index=False)
+        if (options["tidyData"]): 
+            stringData = stringData.strip()
+            stringData = re.sub('\s{2,}', ' ', stringData)
         outputFile = open(options["outputFolder"] + "File" + str(fileCount) + "Row" +  str(i) + ".txt", "w", encoding="utf-8")
-        outputFile.write(data.to_string(header=False, index=False))
+        outputFile.write(stringData)
         outputFile.close()
-        if options["verbose"] & options["Rows"] >= 4:
+        if options["verbose"] and rowsToConvert >= 4:
             if i == rowsToConvert:
                 print("100% complete")
             elif i == int((rowsToConvert*0.75)):
@@ -52,4 +60,22 @@ for fileName in inputs:
                 print("50% complete")
             elif i == int((rowsToConvert*0.25)):
                 print("25% complete")
+
+            if rowsToConvert >= 20:
+                if i == int((rowsToConvert*0.1)):
+                    print("10% complete")
+                elif i == int((rowsToConvert*0.2)):
+                    print("20% complete")
+                elif i == int((rowsToConvert*0.3)):
+                    print("30% complete")
+                elif i == int((rowsToConvert*0.4)):
+                    print("40% complete")
+                elif i == int((rowsToConvert*0.6)):
+                    print("60% complete")
+                elif i == int((rowsToConvert*0.7)):
+                    print("70% complete")
+                elif i == int((rowsToConvert*0.8)):
+                    print("80% complete")
+                elif i == int((rowsToConvert*0.9)):
+                    print("90% complete")
 print ("Transfer Complete")
