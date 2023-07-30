@@ -8,8 +8,7 @@ try:
     optionsFile = open("Options.json")
     options = json.load(optionsFile)
 except:
-    #print("hi")
-    options = {
+    options = { #Default values
         "inputFolder": "Input/",
         "outputFolder": "Output/",
         "verbose": True,
@@ -37,7 +36,6 @@ for fileName in inputs:
         print("Could not open file at: " + filePath)
         break
 
-    #columnFrame = rawDataFrame.usecols=[options["Column"]]
     if (options["Rows"] <= 0):
         rowsToConvert = len(columnFrame)
     else:
@@ -45,9 +43,11 @@ for fileName in inputs:
     for i in range(rowsToConvert):
         data = columnFrame.iloc[[i]]
         stringData = data.to_string(header=False, index=False)
-        if (options["tidyData"]): 
+
+        if (options["tidyData"]): #currently eliminates excess whitespace
             stringData = stringData.strip()
             stringData = re.sub('\s{2,}', ' ', stringData)
+        
         outputFile = open(options["outputFolder"] + "File" + str(fileCount) + "Row" +  str(i) + ".txt", "w", encoding="utf-8")
         outputFile.write(stringData)
         outputFile.close()
